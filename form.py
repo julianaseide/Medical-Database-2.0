@@ -1,5 +1,8 @@
 import tkinter as tk
 
+from tkinter import filedialog
+import fpdf
+
 window = tk.Tk()
 window.title("Patient Intake Form")
 window.geometry("800x600")
@@ -79,28 +82,28 @@ entry9.grid(row = 1, column = 3)
 
 weight = tk.Label(content_frame, text = "Weight:")
 weight.grid(row = 2, column = 2, padx = 5, pady = 5, sticky = "w")
-entry9 = tk.Entry(content_frame, width = 25)
-entry9.grid(row = 2, column = 3)
+entry10 = tk.Entry(content_frame, width = 25)
+entry10.grid(row = 2, column = 3)
 
 father = tk.Label(content_frame, text = "Father:")
 father.grid(row = 3, column = 2, padx = 5, pady = 5, sticky = "w")
-entry8 = tk.Entry(content_frame, width = 25)
-entry8.grid(row = 3, column = 3)
+entry11 = tk.Entry(content_frame, width = 25)
+entry11.grid(row = 3, column = 3)
 
 city = tk.Label(content_frame, text = "City:")
 city.grid(row = 4, column = 2, padx = 5, pady = 5, sticky = "w")
-entry9 = tk.Entry(content_frame, width = 25)
-entry9.grid(row = 4, column = 3)
+entry12 = tk.Entry(content_frame, width = 25)
+entry12.grid(row = 4, column = 3)
 
 zip = tk.Label(content_frame, text = "Zip Code:")
 zip.grid(row = 5, column = 2, padx = 5, pady = 5, sticky = "w")
-entry10 = tk.Entry(content_frame, width = 25)
-entry10.grid(row =5, column = 3)
+entry13 = tk.Entry(content_frame, width = 25)
+entry13.grid(row =5, column = 3)
 
 email = tk.Label(content_frame, text = "Email:")
 email.grid(row = 6, column = 2, padx = 5, pady = 5, sticky = "w")
-entry11 = tk.Entry(content_frame, width = 25)
-entry11.grid(row = 6, column = 3)
+entry14 = tk.Entry(content_frame, width = 25)
+entry14.grid(row = 6, column = 3)
 
 emergency_title = tk.Label(main_frame, text = "Emergency Contact Information")
 emergency_title.config(font = ("Arial", 15, "bold"))
@@ -111,18 +114,18 @@ emergency_frame.pack()
 
 contact = tk.Label(emergency_frame, text = "Emergency Contact Name:")
 contact.grid(row = 1, column = 0, padx = 5, pady = 5, sticky = "w")
-entry12 = tk.Entry(emergency_frame, width = 25)
-entry12.grid(row = 1, column = 1, padx = 5, pady = 5)
+entry15 = tk.Entry(emergency_frame, width = 25)
+entry15.grid(row = 1, column = 1, padx = 5, pady = 5)
 
 relationship = tk.Label(emergency_frame, text = "Relationship to Patient:")
 relationship.grid(row = 2, column = 0, padx = 5, pady = 5, sticky = "w")
-entry13 = tk.Entry(emergency_frame, width = 25) 
-entry13.grid(row = 2, column = 1, padx = 5, pady = 5)
+entry16 = tk.Entry(emergency_frame, width = 25) 
+entry16.grid(row = 2, column = 1, padx = 5, pady = 5)
 
 phone = tk.Label(emergency_frame, text = "Phone:")
 phone.grid(row = 3, column = 0, padx = 5, pady = 5, sticky = "w")
-entry14 = tk.Entry(emergency_frame, width = 25)
-entry14.grid(row = 3, column = 1, padx = 5, pady = 5)
+entry17 = tk.Entry(emergency_frame, width = 25)
+entry17.grid(row = 3, column = 1, padx = 5, pady = 5)
 
 from PIL import Image, ImageTk
 
@@ -915,6 +918,40 @@ glands1 = tk.Label(hematologic_frame, text = "Enlarged Glands")
 glands1.grid(row = 5, column = 1, sticky = "w")
 glands2 = tk.Checkbutton(hematologic_frame, variable = glands1_var)
 glands2.grid(row = 5, column = 0, sticky = "e")
+
+def convert_to_pdf():
+    dictionary ={
+    "Patient Full Name":entry1.get(),
+    "Gender": entry2.get(),
+    "Height": entry3.get(),
+    "Mother": entry4.get(),
+    "Address": entry5.get(),
+    "State": entry6.get(),
+    "Phone": entry7.get(),
+    "DOB": entry8.get(),
+    "Age": entry9.get(),
+    "Weight": entry10.get(),
+    "Father": entry11.get(),
+    "City": entry12.get(),
+    "Zip Code": entry13.get(),
+    "Email": entry14.get(),
+    "Emergency Contact Name": entry15.get(),
+    "Relationship to Patient": entry16.get(),
+    "Phone": entry17.get()
+    }
+    pdf = fpdf.FPDF() 
+    pdf.add_page()
+    pdf.set_font("Arial", size = 10)
+    for key, value in dictionary.items():
+         pdf.cell(200,10, f"{key}: {value}", ln=1)
+    filepath = filedialog.asksaveasfilename(defaultextension= ".pdf")
+    pdf.output(filepath)
+
+button_frame = tk.Frame(main_frame)
+button_frame.pack()
+
+submit_button = tk.Button(button_frame, text = "Submit", command = convert_to_pdf)
+submit_button.grid(row = 0, column = 0)
 
 
 window.mainloop()
