@@ -1,0 +1,41 @@
+from tkinter import filedialog
+
+import fpdf
+
+
+def convert_to_pdf():
+    dictionary ={
+    "Patient Full Name":entry1.get(),
+    "Gender": entry2.get(),
+    "Height": entry3.get(),
+    "Mother": entry4.get(),
+    "Address": entry5.get(),
+    "State": entry6.get(),
+    "Phone": entry7.get(),
+    "DOB": entry8.get(),
+    "Age": entry9.get(),
+    "Weight": entry10.get(),
+    "Father": entry11.get(),
+    "City": entry12.get(),
+    "Zip Code": entry13.get(),
+    "Email": entry14.get(),
+    "Emergency Contact Name": entry15.get(),
+    "Relationship to Patient": entry16.get(),
+    "Phone": entry17.get()
+    }
+    pdf = fpdf.FPDF() 
+    pdf.add_page()
+    pdf.set_font("Arial", size = 10)
+    for key, value in dictionary.items():
+         pdf.cell(200,10, f"{key}: {value}", ln=1)
+    filepath = filedialog.asksaveasfilename(defaultextension= ".pdf")
+    pdf.output(filepath)
+
+button_frame = tk.Frame(main_frame)
+button_frame.pack()
+
+submit_button = tk.Button(button_frame, text = "Submit", command = convert_to_pdf)
+submit_button.grid(row = 0, column = 0)
+
+
+
