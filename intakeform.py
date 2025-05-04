@@ -321,4 +321,4 @@ submit_button.grid(row = 0, column = 0)
 
 window.mainloop()
 
-# Utilizes tkinter geometry, for loops, dictionaries, lists, calling functions New stuff: scrollbar, convert to PDF
+# Utilizes tkinter geometry, for loops, dictionaries, lists, calling functions New stuff: scrollbar, convert to PDF, import picture into tkinter
