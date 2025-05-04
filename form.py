@@ -143,7 +143,8 @@ scale_frame.pack()
 
 pain_title = tk.Label(scale_frame, text = "Please Mark Your Pain Level:")
 pain_title.config(font = ("Arial", 15, "bold"))
-pain_title.grid(row = 0, column = 0, padx = 10, pady = 10)
+pain_title.grid(row = 0, column = 1)
+
 
 none_var = tk.IntVar()
 low_var = tk.IntVar()
@@ -152,29 +153,29 @@ high_var = tk.IntVar()
 extreme_var = tk.IntVar()
 
 p1 = tk.Label(scale_frame, text = "0")
-p1.grid(row = 1, column = 0)
+p1.grid(row = 1, column = 1)
 p2 = tk.Checkbutton(scale_frame, variable = none_var)
-p2.grid(row = 1, column = 1)
+p2.grid(row = 1, column = 0)
 
 q1 = tk.Label(scale_frame, text = "1-3")
-q1.grid(row = 2, column = 0)
+q1.grid(row = 2, column = 1)
 q2 = tk.Checkbutton(scale_frame, variable = low_var)
-q2.grid(row = 2, column = 1)
+q2.grid(row = 2, column = 0)
 
 r1 = tk.Label(scale_frame, text = "4-6")
-r1.grid(row = 3, column = 0)
+r1.grid(row = 3, column = 1)
 r2 = tk.Checkbutton(scale_frame, variable = mid_var)
-r2.grid(row = 3, column = 1)
+r2.grid(row = 3, column = 0)
 
 s1 = tk.Label(scale_frame, text = "7-9")
-s1.grid(row = 4, column = 0)
+s1.grid(row = 4, column = 1)
 s2 = tk.Checkbutton(scale_frame, variable = high_var)
-s2.grid(row = 4, column = 1)
+s2.grid(row = 4, column = 0)
 
 t1 = tk.Label(scale_frame, text = "10")
-t1.grid(row = 5, column = 0)
+t1.grid(row = 5, column = 1)
 t2 = tk.Checkbutton(scale_frame, variable = extreme_var)
-t2.grid(row = 5, column = 1)
+t2.grid(row = 5, column = 0)
 
 
 allergies_title = tk.Label(main_frame, text = "Please Select if you have the Following Allergies:")
