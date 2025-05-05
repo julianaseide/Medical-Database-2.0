@@ -8,22 +8,22 @@ window.title("Patient Intake Form")
 window.geometry("800x600")
 
 
-canvas = tk.Canvas(window)
+canvas = tk.Canvas(window) # Creates canvas widget
 canvas.pack(side = "left", fill = "both", expand = "True")
 scrollable_frame = tk.Frame(canvas)
 
-scrollbar = tk.Scrollbar(window, orient = "vertical", command = canvas.yview)
+scrollbar = tk.Scrollbar(window, orient = "vertical", command = canvas.yview) # Attaches a vertical scrollbar and its linked to Canvas
 scrollbar.pack(side = "right", fill = "y")
 
-canvas.configure(yscrollcommand = scrollbar.set)
-scrollable_frame.bind(
+canvas.configure(yscrollcommand = scrollbar.set) # This makes Canvas tell the scrollbar when the view of the form has changed from scrolling down
+scrollable_frame.bind( # This updates the scrollbar areas
     "<Configure>",
     lambda e: canvas.configure(
         scrollregion = canvas.bbox("all")
     )
 )
 
-canvas.create_window((0,0), window = scrollable_frame, anchor = "nw")
+canvas.create_window((0,0), window = scrollable_frame, anchor = "nw") #This is the actual frame where all content information is stored
 
 canvas.configure(yscrollcommand = scrollbar.set)
 
@@ -196,12 +196,12 @@ allergy_labels = [
     "Environmental allergies"
 ]
 
-allergy_vars = {}  
+allergy_vars = {}  # Placed list inside dictionary
 
 row = 0  
 for label_text in allergy_labels:
     var = tk.IntVar()
-    allergy_vars[label_text] = var  
+    allergy_vars[label_text] = var # Saves to dict; Key = allergy, Value = IntVar()
 
     cb = tk.Checkbutton(allergies_frame, variable=var)
     cb.grid(row=row, column=0, sticky="e")
@@ -211,8 +211,7 @@ for label_text in allergy_labels:
 
     row += 1 
 
-for allergy, var in allergy_vars.items():
-    print(f"{allergy}: {'Yes' if var.get() else 'No'}")
+
 
 
 conditions_title = tk.Label(main_frame, text = "Please Mark Any of the Following Medical Conditions You Have:")
@@ -232,7 +231,7 @@ conditions_list = [
     "Pregnant", "Breast Feeding", "Ulcers", "Osteoporosis", "Celiac", "Other"
 ]
 
-condition_vars = {}
+condition_vars = {} # Placed list inside dictionary
 
 
 row_num = 0
@@ -281,9 +280,15 @@ def convert_to_pdf():
         if var.get() == 1:  
             selected_conditions.append(condition)
 
+    # These loops go through each dictionary and check whether intVar() is 
+    # set to 1; 1 means that the checkbutton was selected; this is added to PDF
+
   
     dictionary["Selected Allergies"] = ", ".join(selected_allergies) if selected_allergies else "None"
     dictionary["Selected Medical Conditions"] = ", ".join(selected_conditions) if selected_conditions else "None"
+    
+    # selected allergies and conditions are lists; the .join joines the lists into a string
+
 
     pdf = fpdf.FPDF() 
     pdf.add_page()
@@ -309,6 +314,8 @@ def terminal_print():
         if var.get():
             print(f"- {condition}")
         
+# Loops through allergy_vars and condition_vars and checks if the checkbox is 
+# checked, if it is, it prints the allergy and condition to terminal
 
 
 button_frame = tk.Frame(main_frame)
@@ -321,4 +328,3 @@ submit_button.grid(row = 0, column = 0)
 
 window.mainloop()
 
-# Utilizes tkinter geometry, for loops, dictionaries, lists, calling functions New stuff: scrollbar, convert to PDF, import picture into tkinter

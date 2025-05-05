@@ -2,17 +2,17 @@ import tkinter as tk
 
 class SymptomCategory:
     def __init__(self, parent, title, symptoms, bg=None):
-        self.vars = {}
-        self.frame = tk.Frame(parent, bg=bg)
-        self.title = tk.Label(parent, text=title, font=("Arial", 15, "bold"), bg=bg)
+        self.vars = {} # stores symptom labels and intvar()
+        self.frame = tk.Frame(parent, bg=bg) # placed inside parent
+        self.title = tk.Label(parent, text=title, font=("Arial", 15, "bold"), bg=bg) # creates a title for category
         self.title.pack(padx=10, pady=10, anchor='w')
         self.frame.pack(padx=5, pady=5, anchor='w')
 
         row = 0
-        for symptom in symptoms:
+        for symptom in symptoms: # loops through each symptom in the symptoms list
             var = tk.IntVar()  
-            self.vars[symptom] = var
-            cb = tk.Checkbutton(self.frame, variable=var, bg=bg)
+            self.vars[symptom] = var # stores IntVar() in dict. with symptom as the key
+            cb = tk.Checkbutton(self.frame, variable=var, bg=bg) # links checkbox to IntVar
             cb.grid(row=row, column=0, sticky="e")
             lbl = tk.Label(self.frame, text=symptom, bg=bg)
             lbl.grid(row=row, column=1, sticky="w")
@@ -20,12 +20,15 @@ class SymptomCategory:
 
     def get_results(self):
         return {symptom: "Yes" if var.get() else "No" for symptom, var in self.vars.items()}
-
+    
+    # This gives a dictionary of all the symptoms in the category with either yes or no
 
 def ask_new_patient():
     prompt_label.config(text="Have you filled out the patient intake form?:")
     submit_button.config(state="normal")
 
+# state = normal enables the button and it prevents the user from continuing onto the 
+#form until they have hit submit
 
 def submit_response():
     response = new_patient_entry.get() 
@@ -40,7 +43,7 @@ def submit_response():
 
 
 def show_symptom_form():
-    global main_frame, categories  
+    global main_frame, categories  # Used global because this code needs to be accessible to the other functions; use main_frame the entire time
     categories = []  
 
 
@@ -110,13 +113,17 @@ def show_symptom_form():
         ])
     ]
 
+    # A list of tuples and each tuple has a string- the category name, and a list of strings (symptoms)
+
     for item in category_definitions:
         title = item[0]
         symptoms = item[1]
         category = SymptomCategory(form_frame, title, symptoms)
         categories.append(category)
 
-  
+  # This loops through the list of tuples; each category is then passed to the SymptomCategory class which creates 
+  # a label and checkbox group
+
     submit_button = tk.Button(form_frame, text="Submit", command=submit, font=("Arial", 12, "bold"))
     submit_button.pack(pady=20)
 
@@ -149,6 +156,6 @@ submit_button.pack(pady=20)
 window.mainloop()
 
 
-# Utilizes classes and if and else statements and prints report to terminal
+
 
 
